@@ -1,0 +1,63 @@
+#include<iostream>
+using namespace std;
+class Node{
+public:
+    int data;
+    Node* next;
+    Node(int data){
+        this->data = data;
+        this->next = NULL;
+    }
+};
+void InsertAtHead(Node* &head,int d){
+    Node* temp = new Node(d);
+    Node* temphead = temp;
+    temphead->next = head;
+    head = temphead;
+}
+void InsertAtTail(Node* &tail,int d){
+    Node* temp = new Node(d);
+    Node* temphead = temp;
+    tail->next = temphead;
+    tail = temphead;
+}
+void InsertAtMiddle(Node* &tail,Node* &head,int position,int d){
+    if(position==1){
+        InsertAtHead(head,d);
+        return;
+    }
+    Node* temp = head;
+    int cnt = 1;
+    while(cnt<position-1){
+        temp = temp->next;
+        cnt++;
+    }
+    //inserting at last position
+    if(temp->next==NULL){
+        InsertAtTail(tail,d);
+        return;
+    }
+    Node* NodeToInsert = new Node(d);
+    NodeToInsert->next = temp->next;
+    temp->next = NodeToInsert;
+}
+void print(Node* &head){
+    Node* temp = head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp = temp->next;
+    }
+    cout<<endl;
+}
+int main(){
+    Node* node1 = new Node(10);
+    Node* head = node1;  // head ki jagah pe node1 bhi le sakte hai
+    Node* tail = node1; 
+    InsertAtHead(head,8);
+    InsertAtHead(head,12);
+    InsertAtTail(tail,20);
+    InsertAtTail(tail,17);
+    InsertAtMiddle(tail,head,4,19);
+    print(head);
+    return 0;
+}
